@@ -89,10 +89,14 @@ module fpnew_fma #(
   // ----------------------
   fp_t                special_result;
   fp_t                special_result_q;
+  logic[52-1:0] test;
 
   always_comb begin : special_cases
+
+   test = 2**(MAN_BITS-1);
+
     // Default assignments
-    special_result    = '{sign: 1'b0, exponent: '1, mantissa: 2**(MAN_BITS-1)}; // canonical qNaN
+    special_result    = '{sign: 1'b0, exponent: '1, mantissa: '1}; // canonical qNaN
 
     if (use_sign_i) begin
         // Result is inifinity with sign of the addend (= operand_c)

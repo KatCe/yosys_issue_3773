@@ -30,20 +30,18 @@ module fpnew_fma (
 	localparam [31:0] MAN_BITS = fpnew_pkg_man_bits(FpFormat);
 	reg [((1 + EXP_BITS) + MAN_BITS) - 1:0] special_result;
 	wire [((1 + EXP_BITS) + MAN_BITS) - 1:0] special_result_q;
+	reg [51:0] test;
 	function automatic [EXP_BITS - 1:0] sv2v_cast_3E86D;
 		input reg [EXP_BITS - 1:0] inp;
 		sv2v_cast_3E86D = inp;
-	endfunction
-	function automatic [MAN_BITS - 1:0] sv2v_cast_14681;
-		input reg [MAN_BITS - 1:0] inp;
-		sv2v_cast_14681 = inp;
 	endfunction
 	function automatic [MAN_BITS - 1:0] sv2v_cast_E62B0;
 		input reg [MAN_BITS - 1:0] inp;
 		sv2v_cast_E62B0 = inp;
 	endfunction
 	always @(*) begin : special_cases
-		special_result = {1'b0, sv2v_cast_3E86D('1), sv2v_cast_14681(2 ** (MAN_BITS - 1))};
+		test = 2 ** (MAN_BITS - 1);
+		special_result = {1'b0, sv2v_cast_3E86D('1), sv2v_cast_E62B0('1)};
 		if (use_sign_i)
 			special_result = {sign_i, sv2v_cast_3E86D('1), sv2v_cast_E62B0('0)};
 	end

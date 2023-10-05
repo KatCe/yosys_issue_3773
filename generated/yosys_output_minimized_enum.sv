@@ -12,7 +12,7 @@ module \$paramod\fpnew_fma\FpFormat=3'001 (clk_i, rst_ni, use_sign_i, sign_i, re
   wire [63:0] special_result;
   input use_sign_i;
   wire use_sign_i;
-  assign special_result = use_sign_i ? { sign_i, 63'h7ff0000000000000 } : 64'h7ff0000000000000;
+  assign special_result = use_sign_i ? { sign_i, 63'h7ff0000000000000 } : 64'h7fffffffffffffff;
   assign result_o = { 1'h1, special_result };
 endmodule
 
